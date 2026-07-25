@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import fs from 'node:fs';
 import { google } from 'googleapis';
 import { ConnectedChannel } from '../models/ConnectedChannel.js';
@@ -194,7 +195,7 @@ export async function resumePendingUploads() {
   // Jobs left "uploading" after a hard restart are made claimable again.
   const staleBefore = new Date(Date.now() - 6 * 60 * 60_000);
   await UploadJob.updateMany(
-    { status: 'uploading', updatedAt: { $lt: staleBefore } },
+    { status: 'uploading', updatedAt: mongoose.trusted({ $lt: staleBefore }) },
     { status: 'queued', stage: 'Recovered after restart', progress: 10 }
   );
   const queued = await UploadJob.find({ status: 'queued' }).select('_id').limit(25).lean();

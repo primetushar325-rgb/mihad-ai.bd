@@ -1,6 +1,8 @@
+cat > ./src/services/cleanup.service.js << 'EOF'
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import mongoose from 'mongoose';
 import { env } from '../config/env.js';
 import { UploadJob } from '../models/UploadJob.js';
 
@@ -11,7 +13,7 @@ export async function cleanupExpiredUploads() {
   const protectedJobs = await UploadJob.find({
     $or: [
       { status: { $in: ['queued', 'uploading'] } },
-      { status: 'failed', updatedAt: { $gte: new Date(cutoff) } }
+      { status: 'failed', updatedAt: mongoose.trusted({ $gte: new Date(cutoff) }) }
     ]
   }).select('+sourcePath +thumbnailPath').lean();
   const protectedPaths = new Set(protectedJobs.flatMap((job) => [job.sourcePath, job.thumbnailPath]).filter(Boolean).map((file) => path.resolve(file)));
@@ -23,3 +25,4 @@ export async function cleanupExpiredUploads() {
     if (stat && stat.mtimeMs < cutoff) await fs.promises.unlink(full).catch(() => {});
   }));
 }
+
