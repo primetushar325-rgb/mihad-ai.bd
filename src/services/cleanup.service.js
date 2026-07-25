@@ -1,4 +1,3 @@
-cat > ./src/services/cleanup.service.js << 'EOF'
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -25,4 +24,3 @@ export async function cleanupExpiredUploads() {
     if (stat && stat.mtimeMs < cutoff) await fs.promises.unlink(full).catch(() => {});
   }));
 }
-
