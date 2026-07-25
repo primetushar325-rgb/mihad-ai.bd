@@ -60,5 +60,5 @@ dashboardRouter.get('/api-status', asyncHandler(async (_req, res) => {
     quota,
     environment: env.nodeEnv,
     security: { keysExposedToBrowser: false, oauth: 'OAuth 2.0', sessionCookie: env.isProduction ? 'Secure + HttpOnly' : 'HttpOnly' }
-  } }));
+  } });
 }));
