@@ -1,0 +1,30 @@
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      MONGODB_URI: mongodb://mongo:27017/mihad-ai
+      PORT: 3000
+    ports:
+      - "3000:3000"
+    volumes:
+      - upload-cache:/app/storage/tmp
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+volumes:
+  mongo-data:
+  upload-cache:

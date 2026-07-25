@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#050505">
+  <meta name="description" content="Mihad AI is a secure YouTube operations workspace for multi-channel publishing, bulk editing, SEO, analytics, and AI-assisted creative workflows.">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Dashboard — Mihad AI</title>
+  <link rel="canonical" href="/dashboard">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body class="app-body">
+  <div class="loading-screen" id="loadingScreen" aria-live="polite"><div class="loader-mark"><img src="/assets/img/logo.svg" alt=""><span></span></div><strong>MIHAD <em>AI</em></strong><small>SYNCHRONIZING CREATOR CORE</small><div class="loader-line"><i></i></div></div>
+  <div class="cyber-bg" aria-hidden="true"><div class="grid-plane"></div><div class="orb orb-a"></div><div class="orb orb-b"></div><div class="noise"></div></div>
+  <div class="sidebar-scrim" id="sidebarScrim"></div>
+
+  <aside class="sidebar glass-panel" id="sidebar" aria-label="Main navigation">
+    <div class="sidebar-head">
+      <a class="brand" href="/dashboard" data-route><img src="/assets/img/logo.svg" alt=""><span>Mihad <b>AI</b></span></a>
+      <button class="icon-btn sidebar-close" id="sidebarClose" type="button" aria-label="Close navigation"><i data-icon="x"></i></button>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-label">WORKSPACE</div>
+      <a href="/dashboard" data-route data-page-link="dashboard"><i data-icon="grid"></i><span>Dashboard</span><b></b></a>
+      <a href="/upload" data-route data-page-link="upload"><i data-icon="upload"></i><span>Upload Studio</span><em>NEW</em></a>
+      <a href="/channels" data-route data-page-link="channels"><i data-icon="radio"></i><span>Channel Manager</span><b class="nav-count" id="channelNavCount">0</b></a>
+      <a href="/bulk-editor" data-route data-page-link="bulk-editor"><i data-icon="edit-3"></i><span>Bulk Video Editor</span></a>
+      <div class="nav-label">INTELLIGENCE</div>
+      <a href="/seo" data-route data-page-link="seo"><i data-icon="target"></i><span>SEO Analyzer</span></a>
+      <a href="/assistant" data-route data-page-link="assistant"><i data-icon="sparkles"></i><span>AI Assistant</span><em class="ai-badge">AI</em></a>
+      <a href="/thumbnails" data-route data-page-link="thumbnails"><i data-icon="image"></i><span>Thumbnail Center</span></a>
+      <a href="/url-analyzer" data-route data-page-link="url-analyzer"><i data-icon="link"></i><span>URL Analyzer</span></a>
+      <a href="/analytics" data-route data-page-link="analytics"><i data-icon="bar-chart"></i><span>Analytics</span></a>
+      <div class="nav-label">SYSTEM</div>
+      <a href="/settings" data-route data-page-link="settings"><i data-icon="settings"></i><span>Settings</span></a>
+      <a href="/api-manager" data-route data-page-link="api-manager"><i data-icon="database"></i><span>API Manager</span></a>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="quota-mini">
+        <div class="quota-mini-head"><span><i data-icon="activity"></i> Daily API quota</span><b id="sideQuotaPercent">0%</b></div>
+        <div class="progress-track"><i id="sideQuotaBar" style="width:0%"></i></div>
+        <small><span id="sideQuotaUsed">0</span> / <span id="sideQuotaLimit">10,000</span> units</small>
+      </div>
+      <button class="sidebar-profile" id="sidebarProfile" type="button" data-navigate="settings"><span class="user-avatar" id="sideAvatar">M</span><span><b id="sideUserName">Mihad User</b><small id="sideUserEmail">Workspace owner</small></span><i data-icon="chevron-right"></i></button>
+    </div>
+  </aside>
+
+  <div class="app-shell">
+    <header class="topbar glass-panel">
+      <div class="topbar-left">
+        <button class="icon-btn menu-toggle" id="menuToggle" type="button" aria-label="Open navigation"><i data-icon="menu"></i></button>
+        <div><div class="breadcrumbs"><span>Mihad AI</span><i data-icon="chevron-right"></i><b id="breadcrumbCurrent">Dashboard</b></div><h1 id="topbarTitle">Dashboard</h1></div>
+      </div>
+      <div class="topbar-actions">
+        <button class="command-search" id="commandOpen" type="button"><i data-icon="search"></i><span>Quick find</span><kbd>⌘ K</kbd></button>
+        <button class="icon-btn notification-button" id="notificationButton" type="button" aria-label="Notifications"><i data-icon="bell"></i><b></b></button>
+        <button class="top-profile" id="topProfile" type="button" aria-label="Account menu"><span class="user-avatar" id="topAvatar">M</span><span><b id="topUserName">Mihad User</b><small>Workspace owner</small></span><i data-icon="chevron-down"></i></button>
+      </div>
+      <div class="profile-menu glass-card hidden" id="profileMenu"><button data-navigate="settings"><i data-icon="user"></i>Profile settings</button><button data-navigate="api-manager"><i data-icon="database"></i>API status</button><hr><button id="logoutButton" class="danger-text"><i data-icon="log-out"></i>Sign out</button></div>
+      <div class="notification-menu glass-card hidden" id="notificationMenu"><div class="popover-head"><b>Notifications</b><button class="text-button">Mark all read</button></div><div class="empty-mini"><i data-icon="bell"></i><b>You're all caught up</b><small>New upload and channel events will appear here.</small></div></div>
+    </header>
+
+    <main class="main-content" id="mainContent">
+      <!-- DASHBOARD -->
+      <section class="page" data-page="dashboard">
+        <div class="page-intro dashboard-intro">
+          <div><div class="eyebrow"><span class="live-dot"></span> CREATOR CORE ONLINE</div><h2>Good <span id="greetingTime">day</span>, <span class="neon-text" id="greetingName">Creator</span></h2><p>Your channel operations are synchronized. Here’s the signal from your workspace.</p></div>
+          <div class="intro-actions"><button class="btn btn-secondary" data-navigate="url-analyzer"><i data-icon="scan"></i> Analyze URL</button><button class="btn btn-primary" data-navigate="upload"><i data-icon="upload-cloud"></i> Upload video</button></div>
+        </div>
+        <div class="stats-grid">
+          <article class="stat-card glass-card"><div class="stat-icon green"><i data-icon="upload-cloud"></i></div><div class="stat-meta"><span>Total uploads</span><b id="statUploads">—</b><small class="trend up"><i data-icon="trending-up"></i><span id="statWeek">Workspace total</span></small></div><div class="stat-spark"><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
+          <article class="stat-card glass-card"><div class="stat-icon cyan"><i data-icon="radio"></i></div><div class="stat-meta"><span>Connected channels</span><b id="statChannels">—</b><small><span class="status-dot"></span> Authorized access</small></div><div class="card-signal"></div></article>
+          <article class="stat-card glass-card"><div class="stat-icon violet"><i data-icon="check-circle"></i></div><div class="stat-meta"><span>Success rate</span><b><span id="statSuccess">—</span><sup>%</sup></b><small><span id="statFailed">0</span> failed uploads</small></div><div class="ring-mini"><svg viewBox="0 0 42 42"><circle cx="21" cy="21" r="16"></circle><circle id="successRing" cx="21" cy="21" r="16"></circle></svg></div></article>
+          <article class="stat-card glass-card"><div class="stat-icon amber"><i data-icon="gauge"></i></div><div class="stat-meta"><span>API quota remaining</span><b id="statQuota">—</b><small>Resets midnight PT</small></div><div class="quota-dots" id="quotaDots"></div></article>
+        </div>
+        <div class="dashboard-grid">
+          <article class="glass-card chart-card span-2">
+            <div class="card-head"><div><span class="section-kicker">PERFORMANCE</span><h3>Upload activity</h3></div><div class="segmented"><button class="active">7 days</button><button>30 days</button></div></div>
+            <div class="chart-wrap"><canvas id="uploadChart" aria-label="Upload activity chart"></canvas><div class="chart-empty hidden" id="chartEmpty"><i data-icon="bar-chart"></i><b>No upload signal yet</b><span>Your activity graph will illuminate after your first upload.</span></div></div>
+          </article>
+          <article class="glass-card quota-card">
+            <div class="card-head"><div><span class="section-kicker">API HEALTH</span><h3>Daily quota</h3></div><span class="live-status"><i></i> LIVE</span></div>
+            <div class="quota-orbit"><svg viewBox="0 0 160 160"><defs><filter id="ringGlow"><feGaussianBlur stdDeviation="3"/></filter></defs><circle class="orbit-bg" cx="80" cy="80" r="60"></circle><circle class="orbit-glow" cx="80" cy="80" r="60"></circle><circle class="orbit-value" id="quotaRing" cx="80" cy="80" r="60"></circle></svg><div><b id="quotaPercent">0%</b><span>consumed</span></div></div>
+            <div class="quota-numbers"><span><small>USED</small><b id="quotaUsed">0</b></span><i></i><span><small>REMAINING</small><b id="quotaRemaining">10,000</b></span></div>
+            <button class="btn btn-ghost btn-block" data-navigate="api-manager">View API manager <i data-icon="arrow-right"></i></button>
+          </article>
+          <article class="glass-card recent-card span-2">
+            <div class="card-head"><div><span class="section-kicker">CONTENT FLOW</span><h3>Recent uploads</h3></div><button class="text-button" data-navigate="upload">View upload history <i data-icon="arrow-right"></i></button></div>
+            <div class="table-wrap"><table><thead><tr><th>Video</th><th>Channel</th><th>Status</th><th>Progress</th><th>Created</th></tr></thead><tbody id="recentUploads"><tr><td colspan="5"><div class="skeleton-row"></div></td></tr></tbody></table></div>
+          </article>
+          <article class="glass-card activity-card">
+            <div class="card-head"><div><span class="section-kicker">AUDIT TRAIL</span><h3>Activity</h3></div><button class="icon-btn" data-refresh="dashboard" aria-label="Refresh"><i data-icon="refresh-cw"></i></button></div>
+            <div class="activity-list" id="activityList"><div class="skeleton-list"><i></i><i></i><i></i></div></div>
+          </article>
+        </div>
+      </section>
+
+      <!-- UPLOAD -->
+      <section class="page hidden" data-page="upload">
+        <div class="page-intro"><div><div class="eyebrow"><span class="live-dot"></span> UPLOAD STUDIO</div><h2>Publish with <span class="neon-text">precision.</span></h2><p>Prepare metadata, schedule, and send your video through an authorized channel.</p></div><button class="btn btn-secondary" id="uploadHistoryToggle"><i data-icon="history"></i> Upload history</button></div>
+        <div class="studio-layout">
+          <form class="glass-card upload-composer" id="uploadForm" enctype="multipart/form-data" novalidate>
+            <div class="stepper"><span class="active"><i>1</i><b>Media</b></span><em></em><span><i>2</i><b>Details</b></span><em></em><span><i>3</i><b>Publish</b></span></div>
+            <div class="form-section"><div class="section-title"><span>01</span><div><h3>Source media</h3><p>MP4, WebM, MOV, MKV or AVI. Subject to your server upload limit.</p></div></div>
+              <label class="dropzone" id="videoDropzone"><input type="file" name="video" accept="video/mp4,video/webm,video/quicktime,video/x-matroska,video/x-msvideo" required><span class="drop-icon"><i data-icon="film"></i></span><b>Drop your master video here</b><p>or <u>browse device storage</u></p><small>Optimized for Android file picker</small><div class="selected-file hidden"><i data-icon="file-video"></i><span><b></b><small></small></span><button type="button" class="icon-btn" data-clear-file="video"><i data-icon="x"></i></button></div></label>
+            </div>
+            <div class="form-section"><div class="section-title"><span>02</span><div><h3>Video details</h3><p>Build a strong, accurate foundation for discovery.</p></div></div>
+              <div class="form-grid">
+                <label class="field full"><span>Connected channel <em>*</em></span><div class="select-wrap"><i data-icon="radio"></i><select name="channelId" id="uploadChannel" required><option value="">Select a connected channel</option></select><i data-icon="chevron-down"></i></div></label>
+                <label class="field full"><span>Title <em>*</em><small><b id="titleCount">0</b>/100</small></span><div class="input-wrap"><i data-icon="type"></i><input name="title" maxlength="100" placeholder="A clear, compelling video title" required></div></label>
+                <label class="field full"><span>Description <small><b id="descriptionCount">0</b>/5,000</small></span><textarea name="description" maxlength="5000" rows="7" placeholder="Tell viewers what they'll learn, add chapters, links, and a concise CTA..."></textarea></label>
+                <label class="field full"><span>Tags <small>comma separated</small></span><div class="input-wrap"><i data-icon="tag"></i><input name="tags" placeholder="creator tools, youtube seo, channel growth"></div></label>
+                <label class="field"><span>Custom thumbnail</span><div class="file-button"><input type="file" name="thumbnail" accept="image/jpeg,image/png"><i data-icon="image"></i><span><b>Choose image</b><small>JPG or PNG · up to 2 MB</small></span></div></label>
+                <label class="field"><span>Playlist</span><div class="select-wrap"><i data-icon="list"></i><select name="playlistId" id="uploadPlaylist"><option value="">No playlist</option></select><i data-icon="chevron-down"></i></div></label>
+              </div>
+            </div>
+            <div class="form-section"><div class="section-title"><span>03</span><div><h3>Visibility & timing</h3><p>Scheduling requires Public as the final visibility.</p></div></div>
+              <div class="privacy-grid" role="radiogroup">
+                <label><input type="radio" name="privacy" value="private" checked><span><i data-icon="lock"></i><b>Private</b><small>Only you and selected users</small></span></label>
+                <label><input type="radio" name="privacy" value="unlisted"><span><i data-icon="link"></i><b>Unlisted</b><small>Anyone with the link</small></span></label>
+                <label><input type="radio" name="privacy" value="public"><span><i data-icon="globe"></i><b>Public</b><small>Visible to everyone</small></span></label>
+              </div>
+              <div class="schedule-row"><label class="switch"><input type="checkbox" id="scheduleToggle"><i></i><span><b>Schedule publication</b><small>Publish automatically at a future time</small></span></label><label class="field schedule-field hidden" id="scheduleField"><span>Publish date & time</span><div class="input-wrap"><i data-icon="calendar"></i><input type="datetime-local" name="scheduledAt"></div></label></div>
+            </div>
+            <div class="composer-footer"><div class="policy-note"><i data-icon="shield-check"></i><span><b>Authorized upload</b><small>Mihad AI only publishes through the channel you explicitly select.</small></span></div><button class="btn btn-primary btn-lg" type="submit"><i data-icon="upload-cloud"></i><span>Queue secure upload</span></button></div>
+          </form>
+          <aside class="studio-aside">
+            <div class="glass-card upload-progress-card hidden" id="uploadProgressCard"><div class="card-head"><h3>Upload in progress</h3><span id="uploadPercent">0%</span></div><div class="upload-visual"><i data-icon="upload-cloud"></i><span></span></div><div class="progress-track large"><i id="uploadProgressBar"></i></div><b id="uploadProgressTitle">Transferring media</b><small id="uploadProgressDetail">Keep this tab open while the file is transferred.</small></div>
+            <div class="glass-card checklist-card"><div class="card-head"><div><span class="section-kicker">PRE-FLIGHT</span><h3>Publishing checklist</h3></div><span class="score-pill" id="preflightScore">0/5</span></div><ul id="preflightList"><li data-check="video"><i data-icon="circle"></i> Video selected</li><li data-check="channel"><i data-icon="circle"></i> Channel authorized</li><li data-check="title"><i data-icon="circle"></i> Strong title added</li><li data-check="description"><i data-icon="circle"></i> Description prepared</li><li data-check="privacy"><i data-icon="circle"></i> Visibility confirmed</li></ul><button type="button" class="btn btn-ghost btn-block" data-navigate="seo">Run SEO analysis <i data-icon="arrow-right"></i></button></div>
+            <div class="glass-card tip-card"><span class="tip-icon"><i data-icon="lightbulb"></i></span><div><b>Creator signal</b><p>Use a 1280×720 thumbnail with a strong focal point, high contrast, and minimal overlay text.</p></div></div>
+          </aside>
+        </div>
+        <div class="glass-card upload-history-panel hidden" id="uploadHistoryPanel"><div class="card-head"><div><span class="section-kicker">PIPELINE</span><h3>Upload history</h3></div><button class="icon-btn" id="refreshUploads"><i data-icon="refresh-cw"></i></button></div><div id="uploadHistoryList" class="upload-history-list"></div></div>
+      </section>
+
+      <!-- CHANNELS -->
+      <section class="page hidden" data-page="channels">
+        <div class="page-intro"><div><div class="eyebrow"><span class="live-dot"></span> AUTHORIZED NETWORK</div><h2>Multi-channel <span class="neon-text">command.</span></h2><p>Connect and monitor channels through Google's secure OAuth 2.0 flow.</p></div><button class="btn btn-primary" id="connectChannel"><i data-icon="plus"></i> Connect YouTube channel</button></div>
+        <div class="security-banner glass-card"><span class="security-icon"><i data-icon="shield-check"></i></span><div><b>You stay in control.</b><p>Connections use explicit Google consent. We encrypt OAuth tokens at rest, request only required YouTube scopes, and never act outside channels you authorize.</p></div><a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">Manage Google access <i data-icon="external-link"></i></a></div>
+        <div class="channel-summary"><div><b id="channelTotal">0</b><span>Total channels</span></div><i></i><div><b id="channelHealthy">0</b><span>Healthy</span></div><i></i><div><b id="channelViews">0</b><span>Combined views</span></div><i></i><div><b id="channelVideos">0</b><span>Total videos</span></div></div>
+        <div class="channel-grid" id="channelGrid"><div class="empty-state glass-card"><span><i data-icon="radio"></i></span><h3>Connect your first channel</h3><p>Authorize a YouTube channel to unlock publishing, video management, and private workspace analytics.</p><button class="btn btn-primary" data-connect-channel><i data-icon="plus"></i> Connect channel</button></div></div>
+      </section>
+
+      <!-- BULK EDITOR -->
+      <section class="page hidden" data-page="bulk-editor">
+        <div class="page-intro"><div><div class="eyebrow"><span class="live-dot"></span> SAFE BATCH OPERATIONS</div><h2>Edit at scale. <span class="neon-text">Stay in control.</span></h2><p>Apply verified metadata and visibility updates to videos owned by an authorized channel.</p></div><button class="btn btn-secondary" id="bulkRefresh"><i data-icon="refresh-cw"></i> Refresh library</button></div>
+        <div class="bulk-toolbar glass-card"><label class="field"><span>Channel library</span><div class="select-wrap"><i data-icon="radio"></i><select id="bulkChannel"><option value="">Select channel</option></select><i data-icon="chevron-down"></i></div></label><label class="search-field"><i data-icon="search"></i><input id="bulkSearch" placeholder="Search loaded videos"><kbd>⌘ F</kbd></label><div class="selection-count"><b id="selectedVideoCount">0</b><span>selected</span></div><button class="btn btn-primary" id="openBulkPanel" disabled><i data-icon="edit-3"></i> Edit selected</button></div>
+        <div class="bulk-layout"><div class="video-library glass-card"><div class="card-head"><div><span class="section-kicker">YOUR CONTENT</span><h3>Video library</h3></div><label class="check"><input type="checkbox" id="selectAllVideos"><i></i><span>Select all</span></label></div><div class="video-select-list" id="bulkVideoList"><div class="empty-state compact"><span><i data-icon="film"></i></span><h3>Select a channel</h3><p>Your latest authorized videos will appear here.</p></div></div></div>
+          <aside class="glass-card bulk-edit-panel" id="bulkEditPanel"><div class="card-head"><div><span class="section-kicker">BATCH CHANGES</span><h3>Update selected</h3></div></div><div class="warning-note"><i data-icon="alert-triangle"></i><span>Only enabled fields will change. Use <b>{current}</b> to preserve existing title or description text.</span></div>
+            <form id="bulkEditForm"><label class="switch form-switch"><input type="checkbox" data-enable="bulkTitle"><i></i><span><b>Update titles</b><small>Maximum 100 characters</small></span></label><label class="field disabled" id="bulkTitleField"><span>Title template</span><input id="bulkTitle" maxlength="100" placeholder="{current} — Updated"></label>
+              <label class="switch form-switch"><input type="checkbox" data-enable="bulkDescription"><i></i><span><b>Update descriptions</b><small>Replace or wrap existing copy</small></span></label><label class="field disabled" id="bulkDescriptionField"><span>Description template</span><textarea id="bulkDescription" rows="4" maxlength="5000" placeholder="{current}&#10;&#10;Watch the next episode..."></textarea></label>
+              <label class="switch form-switch"><input type="checkbox" data-enable="bulkTags"><i></i><span><b>Replace tags</b><small>Focused, comma separated terms</small></span></label><label class="field disabled" id="bulkTagsField"><span>New tags</span><input id="bulkTags" placeholder="tutorial, guide, creator"></label>
+              <label class="switch form-switch"><input type="checkbox" data-enable="bulkPrivacy"><i></i><span><b>Update privacy</b><small>Changes visibility immediately</small></span></label><label class="field disabled" id="bulkPrivacyField"><span>Privacy</span><select id="bulkPrivacy"><option value="private">Private</option><option value="unlisted">Unlisted</option><option value="public">Public</option></select></label>
+              <label class="switch form-switch"><input type="checkbox" data-enable="bulkPlaylist"><i></i><span><b>Add to playlist</b><small>Insert selected videos</small></span></label><label class="field disabled" id="bulkPlaylistField"><span>Playlist</span><select id="bulkPlaylist"><option value="">Select playlist</option></select></label>
+              <button type="submit" class="btn btn-primary btn-block"><i data-icon="check"></i> Review & apply changes</button></form>
+          </aside>
+        </div>
+      </section>
+
+      <!-- SEO -->
+      <section class="page hidden" data-page="seo">
+        <div class="page-intro"><div><div class="eyebrow"><span class="live-dot"></span> DISCOVERY INTELLIGENCE</div><h2>Engineer your <span class="neon-text">search signal.</span></h2><p>Analyze metadata quality against clear, explainable best practices.</p></div><button class="btn btn-secondary" id="seoClear"><i data-icon="rotate-ccw"></i> Clear analysis</button></div>
+        <div class="seo-layout"><form class="glass-card seo-form" id="seoForm"><div class="card-head"><div><span class="section-kicker">METADATA INPUT</span><h3>Video details</h3></div><span class="auto-save"><i></i> Local draft</span></div><label class="field"><span>Primary keyword</span><div class="input-wrap"><i data-icon="key"></i><input name="keyword" maxlength="120" placeholder="e.g. YouTube SEO tutorial"></div></label><label class="field"><span>Video title <small><b data-count-for="seoTitle">0</b>/100</small></span><input id="seoTitle" name="title" maxlength="100" placeholder="Write the working title..."></label><label class="field"><span>Description <small><b data-count-for="seoDescription">0</b>/5,000</small></span><textarea id="seoDescription" name="description" rows="10" maxlength="5000" placeholder="Add your complete description..."></textarea></label><label class="field"><span>Tags</span><input name="tags" placeholder="keyword one, keyword two, long-tail phrase"></label><button class="btn btn-primary btn-lg btn-block" type="submit"><i data-icon="scan"></i> Analyze SEO signal</button></form>
+          <div class="seo-results"><article class="glass-card score-card"><div class="score-gauge"><svg viewBox="0 0 180 180"><circle cx="90" cy="90" r="70"></circle><circle id="seoScoreRing" cx="90" cy="90" r="70"></circle></svg><div><b id="seoScore">—</b><span>/ 100</span></div></div><div><span class="section-kicker">SEO SCORE</span><h3 id="seoGrade">Ready to analyze</h3><p id="seoSummary">Add your metadata to receive an explainable optimization score.</p></div></article>
+            <article class="glass-card checklist-results"><div class="card-head"><div><span class="section-kicker">BEST PRACTICES</span><h3>Optimization checklist</h3></div><span id="checkPassed">0/9 passed</span></div><div id="seoChecklist" class="seo-checklist"><div class="empty-mini"><i data-icon="target"></i><b>No analysis yet</b><small>Your actionable checklist will appear here.</small></div></div></article>
+            <article class="glass-card suggestions-card"><div class="card-head"><div><span class="section-kicker">SEMANTIC SIGNALS</span><h3>Suggested tags</h3></div><button class="text-button" id="copySeoTags">Copy all</button></div><div class="tag-cloud" id="seoTagSuggestions"><span class="muted-tag">Suggestions pending</span></div></article>
+          </div>
+        </div>
+      </section>
+
+      <!-- AI ASSISTANT -->
+      <section class="page hidden" data-page="assistant">
+        <div class="page-intro"><div><div class="eyebrow"><span class="live-dot pulse"></span> CREATIVE INTELLIGENCE</div><h2>Turn an idea into <span class="neon-text">creative direction.</span></h2><p>Generate structured starting points, then apply your expertise and fact-check every claim.</p></div><span class="model-pill"><i data-icon="cpu"></i><b id="aiModeLabel">Secure AI mode</b><i class="status-dot"></i></span></div>
+        <div class="ai-layout"><aside class="glass-card ai-tools"><div class="card-head"><div><span class="section-kicker">GENERATE</span><h3>Creative toolkit</h3></div></div><button class="active" data-ai-type="titles"><i data-icon="type"></i><span><b>Video titles</b><small>Hooks that stay credible</small></span><i data-icon="chevron-right"></i></button><button data-ai-type="descriptions"><i data-icon="align-left"></i><span><b>Descriptions</b><small>Structured, useful copy</small></span><i data-icon="chevron-right"></i></button><button data-ai-type="hashtags"><i data-icon="hash"></i><span><b>Hashtags</b><small>Relevant discoverability</small></span><i data-icon="chevron-right"></i></button><button data-ai-type="tags"><i data-icon="tag"></i><span><b>Video tags</b><small>Focused semantic coverage</small></span><i data-icon="chevron-right"></i></button><button data-ai-type="thumbnails"><i data-icon="image"></i><span><b>Thumbnail ideas</b><small>Visual creative briefs</small></span><i data-icon="chevron-right"></i></button><div class="responsible-ai"><i data-icon="shield"></i><p><b>Human review required</b><br>Verify facts, rights, claims, and brand fit before publishing.</p></div></aside>
+          <div class="ai-workspace"><form class="glass-card ai-prompt" id="aiForm"><div class="ai-prompt-head"><span class="spark-icon"><i data-icon="sparkles"></i></span><div><span class="section-kicker">PROMPT COMPOSER</span><h3 id="aiPromptTitle">Generate video titles</h3></div></div><label class="field"><span>What is your video about?</span><textarea name="topic" rows="5" minlength="3" maxlength="500" placeholder="Describe the topic, core promise, and what makes this video useful..." required></textarea></label><div class="form-grid"><label class="field"><span>Tone</span><select name="tone"><option value="professional">Professional</option><option value="energetic">Energetic</option><option value="educational">Educational</option><option value="witty">Witty</option><option value="minimal">Minimal</option></select></label><label class="field"><span>Audience</span><input name="audience" maxlength="100" placeholder="e.g. new creators"></label><label class="field full"><span>Keywords <small>comma separated</small></span><input name="keywords" placeholder="youtube growth, content workflow"></label></div><button class="btn btn-primary btn-lg" type="submit"><i data-icon="sparkles"></i><span>Generate ideas</span><b class="credit-chip">AI</b></button></form>
+            <div class="glass-card ai-output"><div class="card-head"><div><span class="section-kicker">OUTPUT</span><h3>Generated directions</h3></div><div><span class="source-badge hidden" id="aiSourceBadge">AI</span><button class="icon-btn" id="copyAllAi" title="Copy all"><i data-icon="copy"></i></button></div></div><div class="ai-output-list" id="aiOutput"><div class="ai-empty"><span><i data-icon="sparkles"></i></span><h3>Your ideas will appear here</h3><p>Give the assistant context, audience, and tone for more useful directions.</p><div class="prompt-examples"><button data-example="A beginner-friendly guide to YouTube SEO for small business owners">YouTube SEO guide</button><button data-example="A day in Dhaka filmed as a cinematic travel story">Dhaka travel story</button></div></div></div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- THUMBNAILS -->
+      <section class="page hidden" data-page="thumbnails">
+        <div class="page-intro"><div><div class="eyebrow"><span class="live-dot"></span> VISUAL ASSET CENTER</div><h2>Every frame. <span class="neon-text">One library.</span></h2><p>Review available YouTube thumbnail resolutions from your authorized video library.</p></div><button class="btn btn-secondary" data-navigate="assistant"><i data-icon="sparkles"></i> Generate concept</button></div>
+        <div class="thumbnail-toolbar glass-card"><label class="field"><span>Channel</span><div class="select-wrap"><i data-icon="radio"></i><select id="thumbnailChannel"><option value="">Select channel</option></select><i data-icon="chevron-down"></i></div></label><label class="search-field"><i data-icon="search"></i><input id="thumbnailSearch" placeholder="Filter thumbnails"></label><div class="view-switch"><button class="active"><i data-icon="grid"></i></button><button><i data-icon="list"></i></button></div></div>
+        <div class="thumbnail-grid" id="thumbnailGrid"><div class="empty-state glass-card"><span><i data-icon="image"></i></span><h3>Choose a channel library</h3><p>We’ll load public thumbnail assets attached to your latest videos.</p></div></div>
+        <div class="glass-card thumbnail-guide"><span><i data-icon="maximize"></i></span><div><b>YouTube thumbnail standard</b><p>Use a 16:9 image at 1280×720, under 2 MB, in JPG or PNG. Keep critical content inside the safe center area.</p></div><div class="spec-chips"><i>1280 × 720</i><i>16:9</i><i>≤ 2 MB</i></div></div>
+      </section>
+
+      <!-- URL ANALYZER -->
+      <section class="page hidden" data-page="url-analyzer">
+        <div class="page-intro centered"><div><div class="eyebrow"><span class="live-dot"></span> PUBLIC DATA LENS</div><h2>Decode any public <span class="neon-text">YouTube signal.</span></h2><p>Inspect metadata, public statistics, and available thumbnail assets through YouTube Data API v3.</p></div></div>
+        <form class="analyzer-bar glass-card" id="urlAnalyzerForm"><i data-icon="youtube"></i><input name="url" placeholder="Paste youtube.com/watch, youtu.be, Shorts URL, or video ID" autocomplete="off" required><button class="btn btn-primary" type="submit"><i data-icon="scan"></i><span>Analyze video</span></button></form>
+        <p class="analyzer-policy"><i data-icon="info"></i> Public API data only. Mihad AI does not scrape videos or bypass platform restrictions.</p>
+        <div class="analyzer-result hidden" id="analyzerResult"><article class="glass-card analyzer-preview"><div class="video-hero"><img id="analyzerThumb" alt="Analyzed video thumbnail"><span id="analyzerDuration">—</span><a id="analyzerWatch" target="_blank" rel="noopener"><i data-icon="play"></i></a></div><div class="analyzed-copy"><span class="section-kicker">VIDEO METADATA</span><h3 id="analyzerTitle">Video title</h3><div class="channel-line"><span class="mini-channel"><i data-icon="user"></i></span><b id="analyzerChannel">Channel</b><span>·</span><time id="analyzerDate"></time></div><p id="analyzerDescription"></p></div></article>
+          <div class="analyzer-side"><article class="glass-card"><div class="card-head"><div><span class="section-kicker">PUBLIC METRICS</span><h3>Statistics</h3></div><span class="live-status"><i></i> API</span></div><div class="metric-stack"><div><i data-icon="eye"></i><span><small>Views</small><b id="analyzerViews">—</b></span></div><div><i data-icon="thumbs-up"></i><span><small>Likes</small><b id="analyzerLikes">—</b></span></div><div><i data-icon="message-square"></i><span><small>Comments</small><b id="analyzerComments">—</b></span></div></div></article><article class="glass-card"><div class="card-head"><div><span class="section-kicker">ASSETS</span><h3>Available thumbnails</h3></div></div><div class="download-list" id="thumbnailDownloads"></div></article></div>
+        </div>
+        <div class="analyzer-empty glass-card" id="analyzerEmpty"><div class="radar-visual"><i data-icon="scan"></i><span></span><span></span></div><h3>Awaiting a public video URL</h3><p>Enter a valid YouTube link to retrieve data available through the official API.</p></div>
+      </section>
+
+      <!-- ANALYTICS -->
+      <section class="page hidden" data-page="analytics">
+        <div class="page-intro"><div><div class="eyebrow"><span class="live-dot"></span> WORKSPACE ANALYTICS</div><h2>See the system, <span class="neon-text">not the noise.</span></h2><p>Operational insights from your connected channels and Mihad AI activity.</p></div><div class="date-filter"><i data-icon="calendar"></i><span>Last 7 days</span><i data-icon="chevron-down"></i></div></div>
+        <div class="analytics-callout glass-card"><i data-icon="info"></i><p><b>Operational analytics</b><br>This page summarizes Data API snapshots and workspace events. Audience retention, revenue, and watch-time require YouTube Analytics API scopes and are intentionally not inferred.</p></div>
+        <div class="analytics-metrics"><article class="glass-card"><span><i data-icon="upload-cloud"></i></span><div><small>Uploads tracked</small><b id="analyticsUploads">0</b></div></article><article class="glass-card"><span><i data-icon="eye"></i></span><div><small>Connected views</small><b id="analyticsViews">0</b></div></article><article class="glass-card"><span><i data-icon="users"></i></span><div><small>Subscribers snapshot</small><b id="analyticsSubs">0</b></div></article><article class="glass-card"><span><i data-icon="check-circle"></i></span><div><small>Upload success</small><b id="analyticsSuccess">0%</b></div></article></div>
+        <div class="analytics-grid"><article class="glass-card span-2"><div class="card-head"><div><span class="section-kicker">UPLOAD VELOCITY</span><h3>Publishing operations</h3></div><span class="legend-dot">Uploads</span></div><div class="chart-wrap large"><canvas id="analyticsChart"></canvas></div></article><article class="glass-card"><div class="card-head"><div><span class="section-kicker">CHANNEL MIX</span><h3>Connected network</h3></div></div><div class="channel-rank-list" id="channelRankList"><div class="empty-mini"><i data-icon="radio"></i><b>No channels connected</b><small>Connect channels to see network distribution.</small></div></div></article></div>
+      </section>
+
+      <!-- SETTINGS -->
+      <section class="page hidden" data-page="settings">
+        <div class="page-intro"><div><div class="eyebrow"><span class="live-dot"></span> WORKSPACE CONTROL</div><h2>Tune your <span class="neon-text">environment.</span></h2><p>Manage profile preferences and secure account access.</p></div><span class="save-indicator" id="settingsSaved"><i data-icon="check-circle"></i> Changes saved</span></div>
+        <div class="settings-layout"><aside class="glass-card settings-nav"><button class="active" data-settings-tab="profile"><i data-icon="user"></i><span><b>Profile</b><small>Identity & timezone</small></span></button><button data-settings-tab="notifications"><i data-icon="bell"></i><span><b>Notifications</b><small>Delivery preferences</small></span></button><button data-settings-tab="security"><i data-icon="shield"></i><span><b>Security</b><small>Password & sessions</small></span></button><button data-settings-tab="appearance"><i data-icon="monitor"></i><span><b>Appearance</b><small>Workspace density</small></span></button></aside>
+          <div class="settings-content"><form class="glass-card settings-pane" data-settings-pane="profile" id="profileForm"><div class="card-head"><div><span class="section-kicker">YOUR PROFILE</span><h3>Personal information</h3></div></div><div class="profile-hero"><span class="user-avatar large" id="settingsAvatar">M</span><div><b id="settingsDisplayName">Mihad User</b><p id="settingsDisplayEmail">user@example.com</p></div></div><div class="form-grid"><label class="field"><span>Display name</span><input name="name" maxlength="80" required></label><label class="field"><span>Email address</span><input name="email" disabled><small class="field-hint">Contact support to change your sign-in email.</small></label><label class="field full"><span>Timezone</span><select name="timezone"><option value="Asia/Dhaka">Asia/Dhaka (GMT+6)</option><option value="UTC">UTC</option><option value="America/Los_Angeles">America/Los Angeles</option><option value="Europe/London">Europe/London</option><option value="Asia/Kolkata">Asia/Kolkata</option></select></label></div><div class="pane-actions"><button class="btn btn-primary" type="submit"><i data-icon="save"></i> Save profile</button></div></form>
+            <form class="glass-card settings-pane hidden" data-settings-pane="notifications" id="notificationsForm"><div class="card-head"><div><span class="section-kicker">DELIVERY RULES</span><h3>Notifications</h3></div></div><div class="setting-rows"><label><span><b>Email notifications</b><small>Receive important security and account updates.</small></span><span class="switch"><input type="checkbox" name="emailNotifications"><i></i></span></label><label><span><b>Upload notifications</b><small>Get notified when an upload completes or fails.</small></span><span class="switch"><input type="checkbox" name="uploadNotifications"><i></i></span></label></div><div class="pane-actions"><button class="btn btn-primary" type="submit"><i data-icon="save"></i> Save preferences</button></div></form>
+            <form class="glass-card settings-pane hidden" data-settings-pane="security" id="passwordForm"><div class="card-head"><div><span class="section-kicker">ACCOUNT SECURITY</span><h3>Change password</h3></div><span class="security-badge"><i data-icon="shield-check"></i> Protected</span></div><div class="security-info"><i data-icon="lock"></i><p>Passwords are salted and hashed with bcrypt. Active secrets and OAuth tokens never appear in client responses.</p></div><label class="field"><span>Current password</span><input type="password" name="currentPassword" autocomplete="current-password" required></label><label class="field"><span>New password</span><input type="password" name="newPassword" autocomplete="new-password" minlength="10" required><small class="field-hint">At least 10 characters with uppercase, lowercase, and a number.</small></label><div class="pane-actions"><button class="btn btn-primary" type="submit"><i data-icon="key"></i> Update password</button></div></form>
+            <form class="glass-card settings-pane hidden" data-settings-pane="appearance" id="appearanceForm"><div class="card-head"><div><span class="section-kicker">INTERFACE</span><h3>Appearance</h3></div></div><div class="theme-preview active"><div class="theme-swatch"><i></i><i></i><i></i></div><span><b>Midnight Neon</b><small>Pure black · Mihad green · Glass surfaces</small></span><i data-icon="check-circle"></i></div><div class="setting-rows"><label><span><b>Compact mode</b><small>Reduce spacing in tables and content lists.</small></span><span class="switch"><input type="checkbox" name="compactMode"><i></i></span></label></div><div class="pane-actions"><button class="btn btn-primary" type="submit"><i data-icon="save"></i> Apply appearance</button></div></form>
+          </div>
+        </div>
+      </section>
+
+      <!-- API MANAGER -->
+      <section class="page hidden" data-page="api-manager">
+        <div class="page-intro"><div><div class="eyebrow"><span class="live-dot"></span> SYSTEM STATUS</div><h2>Secure API <span class="neon-text">orchestration.</span></h2><p>Verify service readiness and quota health. Secret values are intentionally never returned.</p></div><button class="btn btn-secondary" id="refreshApiStatus"><i data-icon="refresh-cw"></i> Refresh status</button></div>
+        <div class="api-security-hero glass-card"><div class="vault-visual"><i data-icon="shield-check"></i><span></span></div><div><span class="section-kicker">SERVER-SIDE SECRET VAULT</span><h3>Your credentials stay behind the boundary.</h3><p>API keys, OAuth refresh tokens, and encryption material are loaded from environment variables. Browser responses expose only configuration readiness—never the secrets themselves.</p></div><div class="security-stats"><span><b>0</b><small>Keys in browser</small></span><span><b>AES-256</b><small>Token encryption</small></span><span><b>OAuth 2.0</b><small>Google access</small></span></div></div>
+        <div class="api-grid"><article class="glass-card span-2"><div class="card-head"><div><span class="section-kicker">INTEGRATIONS</span><h3>Service readiness</h3></div><span class="live-status"><i></i> SERVER</span></div><div class="service-list" id="serviceList"><div class="skeleton-list"><i></i><i></i><i></i></div></div></article><article class="glass-card quota-card"><div class="card-head"><div><span class="section-kicker">YOUTUBE DATA API</span><h3>Quota meter</h3></div></div><div class="quota-orbit small"><svg viewBox="0 0 160 160"><circle class="orbit-bg" cx="80" cy="80" r="60"></circle><circle class="orbit-value" id="apiQuotaRing" cx="80" cy="80" r="60"></circle></svg><div><b id="apiQuotaPercent">0%</b><span>consumed</span></div></div><div class="quota-numbers"><span><small>USED</small><b id="apiQuotaUsed">0</b></span><i></i><span><small>LIMIT</small><b id="apiQuotaLimit">10,000</b></span></div><p class="quota-footnote">Quota accounting is estimated from operations made by this deployment. Google Cloud Console remains the source of truth.</p></article></div>
+        <div class="glass-card env-guide"><div class="card-head"><div><span class="section-kicker">DEPLOYMENT CHECKLIST</span><h3>Production environment</h3></div><span class="code-label">.env</span></div><div class="env-list"><div><i data-icon="check-circle"></i><span><b>GOOGLE_CLIENT_ID / GOOGLE_CLIENT_SECRET</b><small>OAuth web application credentials with an exact callback URI.</small></span></div><div><i data-icon="check-circle"></i><span><b>YOUTUBE_API_KEY</b><small>Server-restricted key for public video analysis.</small></span></div><div><i data-icon="check-circle"></i><span><b>TOKEN_ENCRYPTION_KEY</b><small>32 random bytes, base64-encoded, kept outside source control.</small></span></div><div><i data-icon="check-circle"></i><span><b>SESSION_SECRET / MONGODB_URI</b><small>Strong session signing key and a production database connection.</small></span></div></div></div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop hidden" id="confirmModal"><div class="modal glass-card" role="dialog" aria-modal="true" aria-labelledby="confirmTitle"><button class="icon-btn modal-close" data-modal-close><i data-icon="x"></i></button><span class="modal-icon" id="confirmIcon"><i data-icon="alert-triangle"></i></span><h3 id="confirmTitle">Confirm action</h3><p id="confirmMessage">Are you sure you want to continue?</p><div class="modal-actions"><button class="btn btn-secondary" data-modal-close>Cancel</button><button class="btn btn-danger" id="confirmAction">Confirm</button></div></div></div>
+  <div class="modal-backdrop command-backdrop hidden" id="commandModal"><div class="command-modal glass-card"><div class="command-input"><i data-icon="search"></i><input id="commandInput" placeholder="Jump to a tool or action..."><kbd>ESC</kbd></div><div class="command-results" id="commandResults"></div></div></div>
+  <div class="toast-region" id="toastRegion" aria-live="polite"></div>
+  <script type="module" src="/assets/js/app.js"></script>
+</body>
+</html>
