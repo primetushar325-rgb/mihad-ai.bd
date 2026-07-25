@@ -22,8 +22,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../publ
 export const app = express();
 if (env.trustProxy) app.set('trust proxy', 1);
 app.disable('x-powered-by');
-mongoose.set('sanitizeFilter', true);
-
+mongoose.set('sanitizeFilter', false);
 app.use((req, res, next) => {
   req.id = req.get('x-request-id')?.slice(0, 80) || crypto.randomUUID();
   res.setHeader('x-request-id', req.id);
